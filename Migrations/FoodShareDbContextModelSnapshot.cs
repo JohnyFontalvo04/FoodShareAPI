@@ -35,7 +35,8 @@ namespace FoodShareAPI.Migrations
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<bool>("Disponible")
                         .HasColumnType("bit");
@@ -48,7 +49,8 @@ namespace FoodShareAPI.Migrations
 
                     b.Property<string>("NombreAlimento")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("UsuarioId")
                         .HasColumnType("int");
@@ -103,7 +105,8 @@ namespace FoodShareAPI.Migrations
 
                     b.Property<string>("Estado")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<DateTime>("FechaSolicitud")
                         .HasColumnType("datetime2");
@@ -138,11 +141,13 @@ namespace FoodShareAPI.Migrations
 
                     b.Property<string>("Correo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Direccion")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("FechaRegistro")
                         .HasColumnType("datetime2");
@@ -158,11 +163,13 @@ namespace FoodShareAPI.Migrations
 
                     b.Property<string>("Rol")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Telefono")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -172,7 +179,7 @@ namespace FoodShareAPI.Migrations
             modelBuilder.Entity("FoodShareAPI.Modelos.Donacion", b =>
                 {
                     b.HasOne("FoodShareAPI.Modelos.Usuario", "Usuario")
-                        .WithMany()
+                        .WithMany("Donaciones")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -183,9 +190,9 @@ namespace FoodShareAPI.Migrations
             modelBuilder.Entity("FoodShareAPI.Modelos.Entrega", b =>
                 {
                     b.HasOne("FoodShareAPI.Modelos.Solicitud", "Solicitud")
-                        .WithMany()
+                        .WithMany("Entregas")
                         .HasForeignKey("SolicitudId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Solicitud");
@@ -194,13 +201,13 @@ namespace FoodShareAPI.Migrations
             modelBuilder.Entity("FoodShareAPI.Modelos.Solicitud", b =>
                 {
                     b.HasOne("FoodShareAPI.Modelos.Donacion", "Donacion")
-                        .WithMany()
+                        .WithMany("Solicitudes")
                         .HasForeignKey("DonacionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("FoodShareAPI.Modelos.Usuario", "Usuario")
-                        .WithMany()
+                        .WithMany("Solicitudes")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -208,6 +215,23 @@ namespace FoodShareAPI.Migrations
                     b.Navigation("Donacion");
 
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("FoodShareAPI.Modelos.Donacion", b =>
+                {
+                    b.Navigation("Solicitudes");
+                });
+
+            modelBuilder.Entity("FoodShareAPI.Modelos.Solicitud", b =>
+                {
+                    b.Navigation("Entregas");
+                });
+
+            modelBuilder.Entity("FoodShareAPI.Modelos.Usuario", b =>
+                {
+                    b.Navigation("Donaciones");
+
+                    b.Navigation("Solicitudes");
                 });
 #pragma warning restore 612, 618
         }

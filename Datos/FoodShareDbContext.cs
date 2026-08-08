@@ -22,22 +22,32 @@ namespace FoodShareAPI.Datos
         {
             base.OnModelCreating(modelBuilder);
 
+            // Usuario -> Donaciones
             modelBuilder.Entity<Donacion>()
                 .HasOne(d => d.Usuario)
-                .WithMany()
+                .WithMany(u => u.Donaciones)
                 .HasForeignKey(d => d.UsuarioId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Usuario -> Solicitudes
             modelBuilder.Entity<Solicitud>()
                 .HasOne(s => s.Usuario)
-                .WithMany()
+                .WithMany(u => u.Solicitudes)
                 .HasForeignKey(s => s.UsuarioId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Donación -> Solicitudes
             modelBuilder.Entity<Solicitud>()
                 .HasOne(s => s.Donacion)
-                .WithMany()
+                .WithMany(d => d.Solicitudes)
                 .HasForeignKey(s => s.DonacionId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Solicitud -> Entregas
+            modelBuilder.Entity<Entrega>()
+                .HasOne(e => e.Solicitud)
+                .WithMany(s => s.Entregas)
+                .HasForeignKey(e => e.SolicitudId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

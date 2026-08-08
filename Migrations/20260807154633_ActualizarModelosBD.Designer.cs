@@ -4,6 +4,7 @@ using FoodShareAPI.Datos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodShareAPI.Migrations
 {
     [DbContext(typeof(FoodShareDbContext))]
-    partial class FoodShareDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260807154633_ActualizarModelosBD")]
+    partial class ActualizarModelosBD
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -45,7 +45,7 @@ namespace FoodShareAPI.Controladores
         }
 
         // ==========================================
-        // GET: api/Usuarios/1
+        // GET: api/Usuarios/{id}
         // Requiere autenticación
         // ==========================================
         [Authorize]
@@ -77,20 +77,44 @@ namespace FoodShareAPI.Controladores
 
         // ==========================================
         // POST: api/Usuarios
-        // Público (registro)
+        // Registro público
         // ==========================================
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<Usuario>> CrearUsuario(Usuario usuario)
+        public async Task<ActionResult<UsuarioDto>> CrearUsuario(CrearUsuarioDto usuarioDto)
         {
             try
             {
+                var usuario = new Usuario
+                {
+                    Nombre = usuarioDto.Nombre,
+                    Apellido = usuarioDto.Apellido,
+                    Correo = usuarioDto.Correo,
+                    Password = usuarioDto.Password,
+                    Telefono = usuarioDto.Telefono,
+                    Direccion = usuarioDto.Direccion,
+                    Rol = usuarioDto.Rol
+                };
+
                 var nuevoUsuario = await _usuarioService.CrearAsync(usuario);
+
+                var respuesta = new UsuarioDto
+                {
+                    Id = nuevoUsuario.Id,
+                    Nombre = nuevoUsuario.Nombre,
+                    Apellido = nuevoUsuario.Apellido,
+                    Correo = nuevoUsuario.Correo,
+                    Telefono = nuevoUsuario.Telefono,
+                    Direccion = nuevoUsuario.Direccion,
+                    Rol = nuevoUsuario.Rol,
+                    FechaRegistro = nuevoUsuario.FechaRegistro,
+                    Activo = nuevoUsuario.Activo
+                };
 
                 return CreatedAtAction(
                     nameof(ObtenerUsuario),
-                    new { id = nuevoUsuario.Id },
-                    nuevoUsuario);
+                    new { id = respuesta.Id },
+                    respuesta);
             }
             catch (Exception ex)
             {
@@ -99,7 +123,7 @@ namespace FoodShareAPI.Controladores
         }
 
         // ==========================================
-        // PUT: api/Usuarios/1
+        // PUT: api/Usuarios/{id}
         // Requiere autenticación
         // ==========================================
         [Authorize]
@@ -114,7 +138,6 @@ namespace FoodShareAPI.Controladores
             try
             {
                 await _usuarioService.ActualizarAsync(usuario);
-
                 return NoContent();
             }
             catch (Exception ex)
@@ -124,7 +147,7 @@ namespace FoodShareAPI.Controladores
         }
 
         // ==========================================
-        // DELETE: api/Usuarios/1
+        // DELETE: api/Usuarios/{id}
         // Requiere autenticación
         // ==========================================
         [Authorize]
@@ -134,7 +157,6 @@ namespace FoodShareAPI.Controladores
             try
             {
                 await _usuarioService.EliminarAsync(id);
-
                 return NoContent();
             }
             catch (Exception ex)

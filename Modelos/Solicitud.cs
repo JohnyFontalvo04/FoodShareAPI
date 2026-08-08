@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FoodShareAPI.Modelos
 {
@@ -11,18 +10,20 @@ namespace FoodShareAPI.Modelos
         [Required]
         public int DonacionId { get; set; }
 
-        [ForeignKey("DonacionId")]
         public Donacion? Donacion { get; set; }
 
         [Required]
         public int UsuarioId { get; set; }
 
-        [ForeignKey("UsuarioId")]
         public Usuario? Usuario { get; set; }
 
         public DateTime FechaSolicitud { get; set; } = DateTime.Now;
 
         [Required]
+        [StringLength(30)]
         public string Estado { get; set; } = "Pendiente";
+
+        // Relaciones
+        public ICollection<Entrega> Entregas { get; set; } = new List<Entrega>();
     }
 }

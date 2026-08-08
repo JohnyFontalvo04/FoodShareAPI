@@ -10,8 +10,7 @@ namespace FoodShareAPI.Fabricas
         {
             var optionsBuilder = new DbContextOptionsBuilder<FoodShareDbContext>();
 
-            optionsBuilder.UseSqlServer(
-                "Server=localhost;Database=FoodShareDB;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlite("Data Source=FoodShareDB.db");
 
             return new FoodShareDbContext(optionsBuilder.Options);
         }

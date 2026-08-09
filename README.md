@@ -38,6 +38,7 @@
 * [Solución de problemas](#solución-de-problemas)
 * [Estado del proyecto](#estado-del-proyecto)
 * [Autores](#autores)
+* [Video sustentación API](#video-sustentación-api)
 
 ---
 
@@ -1121,12 +1122,22 @@ También presenta relación con:
 
 Proyecto desarrollado como parte del Diplomado .NET.
 
-| Rol                      | Responsabilidad                                          |
-| ------------------------ | -------------------------------------------------------- |
-| Backend / Technical Lead | Arquitectura, modelos, DbContext y endpoints principales |
-| API / IA                 | Integración con Groq, HttpClient y prompt engineering    |
-| BD / DTOs                | Validaciones, DTOs, consultas LINQ, datos y filtros      |
-| Docs / QA                | README, Swagger, pruebas y evidencias                    |
+| Integrante       | Cargo                      | Responsabilidad                                          |
+| ---------------- | -------------------------- | -------------------------------------------------------- |
+| Daniel Angulo    | Backend / Technical Lead   | Arquitectura, modelos, DbContext y endpoints principales |
+| Johny Fontalvo   | API / IA                   | Integración con Groq, HttpClient y prompt engineering    |
+| Heinil Medina    | BD / DTOs                  | Validaciones, DTOs, consultas LINQ, datos y filtros      |
+| Brayan Meza      | Docs / QA                  | README, Swagger, pruebas y evidencias                    |
+
+---
+
+# Video sustentación API
+
+En el siguiente video se presenta la sustentación de la **FoodShare API**, incluyendo su funcionamiento, arquitectura, endpoints e integración con Inteligencia Artificial mediante Groq.
+
+**Video de sustentación:**
+
+https://drive.google.com/file/d/1or_z5cWbDKExay2-gweHpv2ES4mesMaZ/view?usp=sharing
 
 ---
 

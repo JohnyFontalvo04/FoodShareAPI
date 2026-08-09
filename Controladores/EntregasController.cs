@@ -66,10 +66,19 @@ namespace FoodShareAPI.Controladores
         {
             var nuevaEntrega = await _entregaService.CrearAsync(entrega);
 
+            var entregaDto = new EntregaDto
+            {
+                Id = nuevaEntrega.Id,
+                SolicitudId = nuevaEntrega.SolicitudId,
+                FechaEntrega = nuevaEntrega.FechaEntrega,
+                EstadoEntrega = nuevaEntrega.EstadoEntrega,
+                Observaciones = nuevaEntrega.Observaciones
+            };
+
             return CreatedAtAction(
                 nameof(ObtenerPorId),
                 new { id = nuevaEntrega.Id },
-                nuevaEntrega);
+                entregaDto);
         }
 
         // PUT: api/Entregas/5
